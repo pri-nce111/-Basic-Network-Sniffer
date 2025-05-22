@@ -1,82 +1,216 @@
 # Basic-Network-Sniffer
 Build a network sniffer in Python that captures and  analyzes network traffic. This project will help you  understand how data flows on a network and how  network packets are structured
 
+Network Sniffer 🔍
+A comprehensive real-time network packet capture and analysis tool designed for educational purposes, network diagnostics, and security analysis. Compatible with both local environments and Google Colab.
+✨ Features
+Core Functionality
 
-# 📡 Network Sniffer & Analyzer
+Real-time packet capture using raw sockets
+Protocol analysis for TCP, UDP, ICMP, and other protocols
+Detailed packet parsing including Ethernet, IP, TCP, and UDP headers
+Live statistics showing protocol distribution, top IPs, and port usage
+Cross-platform compatibility (Linux, Windows, macOS)
 
-This project is a Python-based network sniffer and analyzer tool using `Scapy`, `Pandas`, and `Matplotlib`. It captures real-time network packets, extracts useful information, performs statistical analysis, and visualizes the data in various charts.
+Advanced Capabilities
 
----
+Alternative monitoring mode for restricted environments
+Flexible capture options with packet limits and timeouts
+Comprehensive statistics with real-time updates
+Service identification for common ports
+MAC address tracking and Ethernet frame analysis
 
-## 🔧 Features
+🚀 Quick Start
+Local Installation
 
-- Capture live network packets (TCP, UDP, HTTP, DNS, ICMP)
-- Extract detailed packet information
-- Perform traffic statistics (protocol, IPs, ports, sizes)
-- Visualize traffic patterns (pie charts, bar charts, histograms)
-- Export data to CSV and generate JSON summary reports
-- Optional simulated traffic mode for demonstration/testing
+Clone or download the script
+Install dependencies (optional for enhanced features):
+bashpip install psutil
 
----
+Run with appropriate privileges:
+bash# Linux/macOS (requires sudo for raw sockets)
+sudo python3 network_sniffer.py
 
-## 📦 Requirements
+# Windows (run as Administrator)
+python network_sniffer.py
 
-- Python 3.6+
-- Root/admin privileges (for real packet capture)
-- Install required packages:
 
-pip install scapy pandas matplotlib seaborn
-⚠️ On some systems, Scapy may require additional permissions or tools (like tcpdump or libpcap).
+Google Colab Usage
+Simply upload the script to Google Colab and run:
+python# The script automatically detects Colab environment
+exec(open('network_sniffer.py').read())
+📋 Usage Options
+When you run the script, you'll see these options:
 
-🚀 Usage
-Run the Sniffer
-bash
-Copy
-Edit
-python your_script_name.py
-The script will:
+Start packet capture - Full raw socket packet capture (requires root/admin)
+Start alternative network monitor - System-level network monitoring
+Capture with packet limit - Stop after capturing N packets
+Capture with timeout - Stop after specified time duration
 
-Capture 30 packets or timeout after 20 seconds
+🔧 Technical Details
+Raw Socket Mode
 
-Display the first 10 packets
+Captures packets at the Ethernet layer
+Parses headers for detailed analysis
+Requires elevated privileges (root/administrator)
+Provides complete packet visibility
 
-Generate analysis summary
+Alternative Monitor Mode
 
-Create CSV and JSON report files
+Uses system APIs via psutil
+Monitors active connections and traffic
+Works in restricted environments
+No special privileges required
 
-Simulate Network Traffic (No root access)
-If you are running in an environment like Google Colab or do not have permission to sniff packets:
+📊 Output Information
+Packet Details
 
-Uncomment the run_simulation() line at the bottom of the script.
+Timestamp with millisecond precision
+Protocol information (TCP, UDP, ICMP, etc.)
+IP addresses (source and destination)
+Port numbers for TCP/UDP traffic
+MAC addresses for Ethernet frames
+Packet size and header details
 
-Run the script to analyze synthetic data.
+Statistics Dashboard
 
-📊 Output Files
-network_traffic_analysis.csv — Captured packet data
+Protocol distribution with percentages
+Top source IP addresses
+Most active destination ports
+Capture duration and packet rate
+Service identification for common ports
 
-network_analysis_report.json — Summary report with key findings
+🛡️ Security & Privacy
+Important Notes
 
-Visualizations — Plotted inline using matplotlib
+This tool is designed for educational and diagnostic purposes
+Only capture traffic on networks you own or have permission to monitor
+Raw socket access requires elevated privileges for security reasons
+Be aware of local laws and regulations regarding network monitoring
 
-🧪 Example Statistics
-Protocol distribution (TCP, UDP, HTTP, DNS)
+Best Practices
 
-Top 10 source IPs
+Use in controlled environments for learning
+Respect privacy and legal boundaries
+Monitor your own network traffic only
+Use alternative mode in shared/restricted environments
 
-Top 10 destination ports
+🔧 System Requirements
+Minimum Requirements
 
-Packet size stats: mean, min, max, total
+Python 3.6 or higher
+Network interface access
+For full functionality: root/administrator privileges
 
-🛠️ Customization
-Modify start_sniffing(packet_count=30, timeout=20) to adjust capture settings
+Optional Dependencies
 
-Add more protocol layers in extract_packet_info() to extend functionality
+psutil - Enhanced system monitoring capabilities
+google.colab - Automatic Colab environment detection
 
-Enhance visualizations using Seaborn or Plotly
+Platform Support
 
-📌 Notes
-Designed for educational and diagnostic purposes
+✅ Linux - Full functionality with raw sockets
+✅ Windows - Full functionality with raw sockets
+✅ macOS - Full functionality with raw sockets
+✅ Google Colab - Alternative monitoring mode
+✅ Other Unix-like systems - Generally supported
 
-Live packet capture works best on a local machine with admin/root privileges
+🐛 Troubleshooting
+Common Issues
+"Permission denied" error:
 
-Use responsibly and ensure compliance with local laws and network policies
+Run with sudo on Linux/macOS
+Run as Administrator on Windows
+Use alternative monitor mode (option 2)
+
+"Module not found" error:
+
+Install psutil: pip install psutil
+The script will attempt auto-installation
+
+No packets captured:
+
+Check network activity on your system
+Verify network interface is active
+Try alternative monitoring mode
+
+Google Colab specific:
+
+Raw sockets are not available in Colab
+Script automatically uses alternative monitoring
+Some features may be limited
+
+📚 Educational Use Cases
+Network Security Learning
+
+Understand packet structure and protocols
+Learn about network communication patterns
+Analyze traffic flows and identify services
+Practice network forensics techniques
+
+Network Troubleshooting
+
+Identify network bottlenecks
+Monitor connection states
+Analyze protocol distribution
+Debug connectivity issues
+
+System Administration
+
+Monitor network usage patterns
+Identify active services and ports
+Track network performance metrics
+Audit network connections
+
+🔍 Example Output
+📦 Packet #15 | 14:30:25.123
+Size: 74 bytes | Protocol: TCP
+🌐 IP: 192.168.1.100 → 172.217.164.110
+   TTL: 64 | Version: 4 | Length: 60
+🔌 TCP: Port 54321 → 443
+   Seq: 1234567890 | Ack: 9876543210
+🔗 MAC: aa:bb:cc:dd:ee:ff → 12:34:56:78:90:ab
+
+📊 CAPTURE STATISTICS
+Duration: 30.5s | Packets: 150 | Rate: 4.9 pps
+
+🔗 Protocol Distribution:
+   TCP: 120 (80.0%)
+   UDP: 25 (16.7%)
+   ICMP: 5 (3.3%)
+
+🌐 Top Source IPs:
+   192.168.1.100: 95 (63.3%)
+   10.0.0.1: 30 (20.0%)
+🤝 Contributing
+This project welcomes contributions! Areas for improvement:
+
+Additional protocol parsers
+Enhanced statistics and visualization
+Performance optimizations
+Extended platform support
+Documentation improvements
+
+⚖️ Legal Disclaimer
+This tool is provided for educational and legitimate network administration purposes only. Users are responsible for ensuring compliance with applicable laws and regulations. Only use this tool on networks you own or have explicit permission to monitor.
+📖 Learning Resources
+Recommended Reading
+
+Computer Networks by Andrew Tanenbaum
+TCP/IP Illustrated by W. Richard Stevens
+Wireshark documentation for packet analysis
+RFC documents for protocol specifications
+
+Related Tools
+
+Wireshark - GUI packet analyzer
+tcpdump - Command-line packet capture
+nmap - Network discovery and security auditing
+netstat - Network connection monitoring
+
+🏷️ Version History
+
+v1.0 - Initial release with core packet capture functionality
+Support for TCP, UDP, ICMP protocol analysis
+Alternative monitoring mode for restricted environments
+Cross-platform compatibility and Google Colab support
