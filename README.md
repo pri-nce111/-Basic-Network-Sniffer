@@ -25,7 +25,6 @@ This project is a Python-based network sniffer and analyzer tool using `Scapy`, 
 - Root/admin privileges (for real packet capture)
 - Install required packages:
 
-```bash
 pip install scapy pandas matplotlib seaborn
 ⚠️ On some systems, Scapy may require additional permissions or tools (like tcpdump or libpcap).
 
